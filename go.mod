@@ -1,4 +1,4 @@
-module github.com/arielril/basic-go-gl
+module github.com/arielril/go-asteroids
 
 go 1.14
 
