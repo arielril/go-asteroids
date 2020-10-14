@@ -3,7 +3,7 @@ package game
 import (
 	"fmt"
 
-	"github.com/arielril/basic-go-gl/util"
+	"github.com/arielril/go-asteroids/util"
 )
 
 var fps util.FPS
