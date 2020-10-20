@@ -3,6 +3,8 @@ package opengl
 import (
 	"fmt"
 
+	"github.com/arielril/go-asteroids/game"
+	"github.com/arielril/go-asteroids/shooter"
 	"github.com/go-gl/gl/v2.1/gl"
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -24,6 +26,18 @@ func KeyCallback(
 		switch key {
 		case glfw.KeyEscape:
 			w.SetShouldClose(true) // close the window
+			break
+		case glfw.KeyUp:
+			game.MoveShooter(shooter.Moves.Front)
+			break
+		case glfw.KeyLeft:
+			game.MoveShooter(shooter.Moves.RotateLeft)
+			break
+		case glfw.KeyRight:
+			game.MoveShooter(shooter.Moves.RotateRight)
+			break
+		case glfw.KeySpace:
+			game.ShooterShoot()
 			break
 		}
 	}

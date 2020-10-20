@@ -8,12 +8,26 @@ import (
 // Shooter is the main character of the game
 type Shooter interface {
 	object.Object
-	Move()
+	Move(m Movement)
 	Shoot()
 }
 
 type shooter struct {
 	*object.Struct
+}
+
+// Movement is the moves for the shooter
+type Movement string
+
+type moves struct {
+	RotateLeft, RotateRight, Front Movement
+}
+
+// Moves is the set of moves available for the shooter
+var Moves *moves = &moves{
+	RotateLeft:  "ROTATE_LEFT",
+	RotateRight: "ROTATE_RIGHT",
+	Front:       "FRONT",
 }
 
 // NewFromRawObject create a shooter from the raw object.Data
@@ -29,7 +43,7 @@ func NewFromRawObject(raw object.Data) Shooter {
 
 func _updateDirection(s *shooter) {}
 
-func (s *shooter) Move() {
+func (s *shooter) Move(m Movement) {
 	// TODO implement shooter move
 
 	// * when the shooter moves, rotate the OpenGL and update the direction vector

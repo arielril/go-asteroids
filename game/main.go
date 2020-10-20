@@ -69,3 +69,13 @@ func Display(w *glfw.Window) {
 	displayFps()
 	displayScenario()
 }
+
+// MoveShooter moves the shooter object
+func MoveShooter(m shooter.Movement) {
+	shooterObj.Move(m)
+}
+
+// ShooterShoot make the shooter shoot
+func ShooterShoot() {
+	// TODO implement the game shooter shoot
+}
