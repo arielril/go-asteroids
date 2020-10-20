@@ -15,3 +15,25 @@ func displayFps() {
 		fps.Reset()
 	}
 }
+
+func displayScenario() {
+	// Lives
+	for _, l := range lives {
+		l.Draw()
+	}
+
+	// Bullets
+	for _, b := range bullets {
+		b.Draw()
+	}
+
+	// Ships
+	for _, s := range ships {
+		s.Draw()
+	}
+
+	if shooterObj != nil {
+		// Shooter
+		shooterObj.Draw()
+	}
+}
