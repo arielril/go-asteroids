@@ -14,6 +14,8 @@ import (
 	"github.com/go-gl/glfw/v3.3/glfw"
 )
 
+const maxBullets int = 10
+
 var once sync.Once
 
 var shooterObj shooter.Shooter
@@ -61,6 +63,16 @@ func _initializeObjects() {
 			object.New(lifeTemplate, point.New(9, 9.5, 0)),
 			object.New(lifeTemplate, point.New(8.5, 9.5, 0)),
 		)
+
+		// Bullet data objects
+		bullet.SetObjectData(
+			util.GetObjectDataFromFile("./templates/bullet_enemy.txt"),
+			bullet.Type.Enemy,
+		)
+		bullet.SetObjectData(
+			util.GetObjectDataFromFile("./templates/bullet_enemy.txt"),
+			bullet.Type.Shooter,
+		)
 	})
 }
 
@@ -77,5 +89,10 @@ func MoveShooter(m shooter.Movement) {
 
 // ShooterShoot make the shooter shoot
 func ShooterShoot() {
-	// TODO implement the game shooter shoot
+	if len(bullets)+1 >= maxBullets {
+		return
+	}
+
+	shoot := shooterObj.Shoot()
+	bullets = append(bullets, shoot)
 }

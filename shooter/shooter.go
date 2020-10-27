@@ -1,6 +1,9 @@
 package shooter
 
 import (
+	"fmt"
+
+	"github.com/arielril/go-asteroids/bullet"
 	"github.com/arielril/go-asteroids/object"
 	"github.com/arielril/go-asteroids/point"
 )
@@ -9,7 +12,7 @@ import (
 type Shooter interface {
 	object.Object
 	Move(m Movement)
-	Shoot()
+	Shoot() bullet.Bullet
 }
 
 type shooter struct {
@@ -35,27 +38,34 @@ func NewFromRawObject(raw object.Data) Shooter {
 	o := object.New(raw, point.New(5, 5, 0))
 
 	s := &shooter{
-		o.Raw(),
+		Struct: o.Raw(),
 	}
 
 	return s
 }
 
-func _updateDirection(s *shooter) {}
-
 func (s *shooter) Move(m Movement) {
-	// TODO implement shooter move
-
 	// * when the shooter moves, rotate the OpenGL and update the direction vector
-
-	/*
-		1. glRotate(ang)
-		2. glTranslate(0,1,0)
-		3. draw shooter
-		4. update direction
-	*/
+	switch m {
+	case Moves.Front:
+		s.DirectionVector.Set2DCoordinate(0, 1)
+		break
+	case Moves.RotateLeft:
+		s.RotateLeft()
+		break
+	case Moves.RotateRight:
+		s.RotateRight()
+		break
+	}
+	fmt.Printf("Shooter pos (%v)\n", s.Pos.Raw())
 }
 
-func (s *shooter) Shoot() {
-	// TODO implement shooter shoot
+func (s *shooter) Shoot() bullet.Bullet {
+	b := bullet.New(
+		bullet.Type.Shooter,
+		s.Pos,
+		s.Rotation,
+	)
+
+	return b
 }

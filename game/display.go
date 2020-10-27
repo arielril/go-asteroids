@@ -25,6 +25,7 @@ func displayScenario() {
 	// Bullets
 	for _, b := range bullets {
 		b.Draw()
+		b.Raw().DirectionVector.Set2DCoordinate(0, 1)
 	}
 
 	// Ships

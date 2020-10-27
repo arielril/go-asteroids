@@ -7,6 +7,7 @@ type Ship interface {
 	object.Object
 	Shoot()
 	CreateTrajectory()
+	Hit()
 }
 
 type ship struct {
@@ -45,3 +46,5 @@ func (s *ship) Shoot() {
 func (s *ship) CreateTrajectory() {
 	// TODO implement ship trajectory
 }
+
+func (s *ship) Hit() {}

@@ -7,6 +7,8 @@ import (
 
 var colors Data
 
+const angleStep float32 = 15
+
 // Object is the representation of the master object
 type Object interface {
 	// Draw the object in the window
@@ -18,6 +20,8 @@ type Object interface {
 	RotateRight() Object
 	RotateLeft() Object
 
+	SetRotation(float32)
+
 	CreateBoundingBox(o Object) interface{}
 }
 
@@ -28,7 +32,8 @@ type Data [][]int
 type Struct struct {
 	Data Data
 
-	Pos point.Point
+	Pos             point.Point
+	DirectionVector point.Point
 
 	Rotation float32
 
@@ -42,10 +47,11 @@ func New(data Data, p point.Point) Object {
 	}
 
 	return &Struct{
-		Data:        data,
-		Pos:         p,
-		Rotation:    0,
-		BoundingBox: nil,
+		Data:            data,
+		Pos:             p,
+		DirectionVector: point.New(0, 0, 0),
+		Rotation:        0,
+		BoundingBox:     nil,
 	}
 }
 
@@ -71,33 +77,49 @@ func _setColor(templateColor int) {
 	}
 }
 
+func _draw(o *Struct) {
+	objHeight := float32(len(o.Data))
+
+	for i := range o.Data {
+		y := float32(i)
+
+		for j, color := range o.Data[i] {
+			_setColor(color)
+
+			x := float32(j)
+
+			gl.Begin(gl.QUADS)
+			{
+				gl.Vertex2f(x, objHeight-y)
+				gl.Vertex2f(x+1, objHeight-y)
+				gl.Vertex2f(x+1, objHeight-y-1)
+				gl.Vertex2f(x, objHeight-y-1)
+			}
+			gl.End()
+		}
+	}
+}
+
 // Draw draws the Object in the OpenGL window
 func (o *Struct) Draw() {
-	objHeight := float32(len(o.Data))
+	dirVecRaw := o.DirectionVector.Raw()
 
 	gl.PushMatrix()
 	{
 		gl.Translatef(o.Pos.Raw().X, o.Pos.Raw().Y, 0)
 		gl.Scalef(.07, .07, 0)
+		gl.Rotatef(o.Rotation, 0, 0, 1)
+		gl.Translatef(dirVecRaw.X, dirVecRaw.Y, 0)
 
-		for i := range o.Data {
-			y := float32(i)
+		objectGlPosition := getObjectGLPosition(
+			point.New(0, 0, 0),
+		)
 
-			for j, color := range o.Data[i] {
-				_setColor(color)
+		o.Pos.SetCoordinateFromPoint(objectGlPosition)
 
-				x := float32(j)
+		o.DirectionVector.Set2DCoordinate(0, 0)
 
-				gl.Begin(gl.QUADS)
-				{
-					gl.Vertex2f(x, objHeight-y)
-					gl.Vertex2f(x+1, objHeight-y)
-					gl.Vertex2f(x+1, objHeight-y-1)
-					gl.Vertex2f(x, objHeight-y-1)
-				}
-				gl.End()
-			}
-		}
+		_draw(o)
 	}
 	gl.PopMatrix()
 }
@@ -108,15 +130,22 @@ func _rotate(angle float32, o *Struct) {
 
 // RotateRight rotate the object to the right
 func (o *Struct) RotateRight() Object {
+	_rotate(-angleStep, o)
 	return o
 }
 
 // RotateLeft rotate the object to the left
 func (o *Struct) RotateLeft() Object {
+	_rotate(angleStep, o)
 	return o
 }
 
 // CreateBoundingBox create a bounding box for each object and to test collisions
 func (o *Struct) CreateBoundingBox(obj Object) interface{} {
 	return nil
+}
+
+// SetRotation update the rotation property
+func (o *Struct) SetRotation(rotation float32) {
+	o.Rotation = rotation
 }
