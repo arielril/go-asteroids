@@ -67,5 +67,7 @@ func (s *shooter) Shoot() bullet.Bullet {
 		s.Rotation,
 	)
 
+	fmt.Printf("shooting... %#v\n", b.Raw().Data)
+
 	return b
 }

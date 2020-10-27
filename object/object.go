@@ -87,13 +87,14 @@ func _draw(o *Struct) {
 			_setColor(color)
 
 			x := float32(j)
+			halfWidth := float32(len(o.Data[i]) / 2)
 
 			gl.Begin(gl.QUADS)
 			{
-				gl.Vertex2f(x, objHeight-y)
-				gl.Vertex2f(x+1, objHeight-y)
-				gl.Vertex2f(x+1, objHeight-y-1)
-				gl.Vertex2f(x, objHeight-y-1)
+				gl.Vertex2f(x-halfWidth, objHeight-y)
+				gl.Vertex2f(x+1-halfWidth, objHeight-y)
+				gl.Vertex2f(x+1-halfWidth, objHeight-y-1)
+				gl.Vertex2f(x-halfWidth, objHeight-y-1)
 			}
 			gl.End()
 		}

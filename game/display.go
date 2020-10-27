@@ -3,6 +3,7 @@ package game
 import (
 	"fmt"
 
+	"github.com/arielril/go-asteroids/bullet"
 	"github.com/arielril/go-asteroids/util"
 )
 
@@ -23,10 +24,15 @@ func displayScenario() {
 	}
 
 	// Bullets
+	bulletList := make([]bullet.Bullet, 0)
 	for _, b := range bullets {
 		b.Draw()
 		b.Raw().DirectionVector.Set2DCoordinate(0, 1)
+		if !b.ShouldRemove() {
+			bulletList = append(bulletList, b)
+		}
 	}
+	bullets = bulletList
 
 	// Ships
 	for _, s := range ships {

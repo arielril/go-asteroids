@@ -70,7 +70,7 @@ func _initializeObjects() {
 			bullet.Type.Enemy,
 		)
 		bullet.SetObjectData(
-			util.GetObjectDataFromFile("./templates/bullet_enemy.txt"),
+			util.GetObjectDataFromFile("./templates/bullet_shooter.txt"),
 			bullet.Type.Shooter,
 		)
 	})
