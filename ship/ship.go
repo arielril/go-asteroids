@@ -1,6 +1,9 @@
 package ship
 
-import "github.com/arielril/go-asteroids/object"
+import (
+	"github.com/arielril/go-asteroids/object"
+	"github.com/arielril/go-asteroids/point"
+)
 
 // Ship is the representation of a ship
 type Ship interface {
@@ -28,9 +31,9 @@ const (
 	Ship3
 )
 
-// NewFromRawObject creates a new Ship from raw object.Data
-func NewFromRawObject(raw object.Data) Ship {
-	o := object.New(raw, nil)
+// New creates a new Ship from raw object.Data
+func New(raw object.Data, p point.Point) Ship {
+	o := object.New(raw, p)
 
 	s := &ship{
 		o.Raw(),
