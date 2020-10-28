@@ -36,7 +36,7 @@ func displayScenario() {
 
 	// Ships
 	for _, s := range ships {
-		s.Shoot()
+		enemyShoot(s)
 		s.Draw()
 	}
 	enemyBulletsList := make([]bullet.Bullet, 0)

@@ -43,7 +43,6 @@ func NewFromRawObject(raw object.Data) Shooter {
 }
 
 func (s *shooter) Move(m Movement) {
-	// TODO fix the out of window movement
 	// * when the shooter moves, rotate the OpenGL and update the direction vector
 	switch m {
 	case Moves.Front:

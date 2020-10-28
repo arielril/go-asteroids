@@ -107,6 +107,20 @@ func (o *Struct) Draw() {
 
 	gl.PushMatrix()
 	{
+		if o.Pos.Raw().X > 10 {
+			o.Pos.Raw().X = 0
+		}
+		if o.Pos.Raw().X < 0 {
+			o.Pos.Raw().X = 10
+		}
+
+		if o.Pos.Raw().Y > 10 {
+			o.Pos.Raw().Y = 0
+		}
+		if o.Pos.Raw().Y < 0 {
+			o.Pos.Raw().Y = 10
+		}
+
 		gl.Translatef(o.Pos.Raw().X, o.Pos.Raw().Y, 0)
 		gl.Scalef(.07, .07, 0)
 		gl.Rotatef(o.Rotation, 0, 0, 1)

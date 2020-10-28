@@ -19,6 +19,8 @@ type Ship interface {
 
 type ship struct {
 	*object.Struct
+
+	trajectoryProgress float64
 }
 
 // Format of the ships
@@ -42,16 +44,15 @@ func New(raw object.Data, p point.Point) Ship {
 	o := object.New(raw, p)
 
 	s := &ship{
-		o.Raw(),
+		Struct:             o.Raw(),
+		trajectoryProgress: 0,
 	}
 
 	return s
 }
 
 func (s *ship) Shoot() (bullet.Bullet, bool) {
-	// TODO implement ship shoot
 	r := rand.Uint32() % 5000
-	// fmt.Printf("rnd shoot value %v\n", r)
 
 	if r >= 0 && r <= 100 {
 		b := bullet.New(
@@ -67,6 +68,7 @@ func (s *ship) Shoot() (bullet.Bullet, bool) {
 
 func (s *ship) CreateTrajectory() {
 	// TODO implement ship trajectory
+	//  C1(t) = (1-t)2 * P0 + 2 * (1-t) * t * P1 + t2 * P2
 }
 
 func (s *ship) Hit() {}

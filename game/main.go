@@ -15,7 +15,7 @@ import (
 
 const maxBullets int = 10
 const maxEnemyShips = 7
-const maxEnemyBullets = 3 * maxEnemyShips
+const maxEnemyBullets = 10
 
 var once sync.Once
 
