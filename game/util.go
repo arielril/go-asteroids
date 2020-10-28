@@ -3,11 +3,11 @@ package game
 import (
 	"math/rand"
 
-	"github.com/arielril/go-asteroids/bullet"
 	"github.com/arielril/go-asteroids/object"
+	"github.com/arielril/go-asteroids/object/bullet"
+	"github.com/arielril/go-asteroids/object/ship"
+	"github.com/arielril/go-asteroids/object/shooter"
 	"github.com/arielril/go-asteroids/point"
-	"github.com/arielril/go-asteroids/ship"
-	"github.com/arielril/go-asteroids/shooter"
 	"github.com/arielril/go-asteroids/util"
 )
 

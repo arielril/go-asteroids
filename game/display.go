@@ -3,7 +3,7 @@ package game
 import (
 	"fmt"
 
-	"github.com/arielril/go-asteroids/bullet"
+	"github.com/arielril/go-asteroids/object/bullet"
 	"github.com/arielril/go-asteroids/util"
 )
 

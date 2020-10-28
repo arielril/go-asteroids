@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/arielril/go-asteroids/game"
-	"github.com/arielril/go-asteroids/shooter"
+	"github.com/arielril/go-asteroids/object/shooter"
 	"github.com/go-gl/gl/v2.1/gl"
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
