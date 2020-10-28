@@ -1,14 +1,18 @@
 package ship
 
 import (
+	"math/rand"
+	"time"
+
 	"github.com/arielril/go-asteroids/object"
+	"github.com/arielril/go-asteroids/object/bullet"
 	"github.com/arielril/go-asteroids/point"
 )
 
 // Ship is the representation of a ship
 type Ship interface {
 	object.Object
-	Shoot()
+	Shoot() (bullet.Bullet, bool)
 	CreateTrajectory()
 	Hit()
 }
@@ -33,6 +37,8 @@ const (
 
 // New creates a new Ship from raw object.Data
 func New(raw object.Data, p point.Point) Ship {
+	rand.Seed(time.Now().UnixNano())
+
 	o := object.New(raw, p)
 
 	s := &ship{
@@ -42,8 +48,21 @@ func New(raw object.Data, p point.Point) Ship {
 	return s
 }
 
-func (s *ship) Shoot() {
+func (s *ship) Shoot() (bullet.Bullet, bool) {
 	// TODO implement ship shoot
+	r := rand.Uint32() % 5000
+	// fmt.Printf("rnd shoot value %v\n", r)
+
+	if r >= 0 && r <= 100 {
+		b := bullet.New(
+			bullet.Type.Enemy,
+			s.Pos,
+			s.Rotation,
+		)
+		return b, true
+	}
+
+	return nil, false
 }
 
 func (s *ship) CreateTrajectory() {

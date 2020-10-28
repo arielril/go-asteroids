@@ -1,8 +1,6 @@
 package bullet
 
 import (
-	"fmt"
-
 	"github.com/arielril/go-asteroids/object"
 	"github.com/arielril/go-asteroids/point"
 )
@@ -33,8 +31,6 @@ var objectData map[string]object.Data = make(map[string]object.Data)
 
 // New creates a new bullet
 func New(tp string, origin point.Point, rotation float32) Bullet {
-	fmt.Printf("new bullet %v \n", objectData)
-
 	o := object.New(
 		objectData[tp],
 		point.New(origin.Raw().X, origin.Raw().Y, origin.Raw().Z),

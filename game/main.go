@@ -15,6 +15,7 @@ import (
 
 const maxBullets int = 10
 const maxEnemyShips = 7
+const maxEnemyBullets = 3 * maxEnemyShips
 
 var once sync.Once
 
@@ -23,6 +24,7 @@ var shipMapping map[ship.Format]object.Data
 var ships []ship.Ship
 var lives []object.Object
 var bullets []bullet.Bullet
+var enemyBullets []bullet.Bullet
 
 // Init the game
 func Init() {

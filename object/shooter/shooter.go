@@ -1,8 +1,6 @@
 package shooter
 
 import (
-	"fmt"
-
 	"github.com/arielril/go-asteroids/object"
 	"github.com/arielril/go-asteroids/object/bullet"
 	"github.com/arielril/go-asteroids/point"
@@ -45,6 +43,7 @@ func NewFromRawObject(raw object.Data) Shooter {
 }
 
 func (s *shooter) Move(m Movement) {
+	// TODO fix the out of window movement
 	// * when the shooter moves, rotate the OpenGL and update the direction vector
 	switch m {
 	case Moves.Front:
@@ -57,7 +56,6 @@ func (s *shooter) Move(m Movement) {
 		s.RotateRight()
 		break
 	}
-	fmt.Printf("Shooter pos (%v)\n", s.Pos.Raw())
 }
 
 func (s *shooter) Shoot() bullet.Bullet {
@@ -66,8 +64,6 @@ func (s *shooter) Shoot() bullet.Bullet {
 		s.Pos,
 		s.Rotation,
 	)
-
-	fmt.Printf("shooting... %#v\n", b.Raw().Data)
 
 	return b
 }

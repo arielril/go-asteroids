@@ -36,8 +36,22 @@ func displayScenario() {
 
 	// Ships
 	for _, s := range ships {
+		s.Shoot()
 		s.Draw()
 	}
+	enemyBulletsList := make([]bullet.Bullet, 0)
+	for _, b := range enemyBullets {
+		if b == nil {
+			continue
+		}
+
+		b.Draw()
+		b.Raw().DirectionVector.Set2DCoordinate(0, 1)
+		if !b.ShouldRemove() {
+			enemyBulletsList = append(enemyBulletsList, b)
+		}
+	}
+	enemyBullets = enemyBulletsList
 
 	if shooterObj != nil {
 		// Shooter

@@ -26,6 +26,17 @@ func ShooterShoot() {
 	bullets = append(bullets, shoot)
 }
 
+func enemyShoot(s ship.Ship) {
+	if len(enemyBullets)+1 >= maxEnemyBullets {
+		return
+	}
+
+	shoot, ok := s.Shoot()
+	if ok {
+		enemyBullets = append(enemyBullets, shoot)
+	}
+}
+
 func _initializeObjects() {
 	once.Do(func() {
 		// Colors
@@ -44,6 +55,8 @@ func _initializeObjects() {
 		shipMapping[ship.Ship3] = util.GetObjectDataFromFile("./templates/ship3.txt")
 		ships = make([]ship.Ship, maxEnemyShips)
 		_randomCreateEnemyShips()
+		// * each enemy can shoot only 3x at time
+		enemyBullets = make([]bullet.Bullet, 0)
 
 		// Lives
 		lifeTemplate := util.GetObjectDataFromFile("./templates/life.txt")
