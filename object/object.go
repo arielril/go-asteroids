@@ -1,6 +1,7 @@
 package object
 
 import (
+	boundingbox "github.com/arielril/go-asteroids/boundingBox"
 	"github.com/arielril/go-asteroids/point"
 	"github.com/go-gl/gl/v2.1/gl"
 )
@@ -22,7 +23,7 @@ type Object interface {
 
 	SetRotation(float32)
 
-	CreateBoundingBox(o Object) interface{}
+	UpdateBoundingBox() boundingbox.BoundingBox
 }
 
 // Data is the formatted data from the template file
@@ -37,7 +38,7 @@ type Struct struct {
 
 	Rotation float32
 
-	BoundingBox interface{}
+	BoundingBox boundingbox.BoundingBox
 }
 
 // New creates a new object
@@ -155,9 +156,17 @@ func (o *Struct) RotateLeft() Object {
 	return o
 }
 
-// CreateBoundingBox create a bounding box for each object and to test collisions
-func (o *Struct) CreateBoundingBox(obj Object) interface{} {
-	return nil
+// UpdateBoundingBox update the value of the bounding box
+func (o *Struct) UpdateBoundingBox() boundingbox.BoundingBox {
+	b := boundingbox.New(
+		float64(len(o.Raw().Data)),
+		float64(len(o.Raw().Data[0])),
+		point.New(o.Pos.Raw().X, o.Pos.Raw().Y, o.Pos.Raw().Z),
+	)
+
+	o.BoundingBox = b
+
+	return b
 }
 
 // SetRotation update the rotation property

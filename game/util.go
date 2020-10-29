@@ -85,7 +85,7 @@ func _randomCreateEnemyShips() {
 		s := rand.Intn(3)
 		ships[i] = ship.New(
 			shipMapping[ship.Format(s)],
-			point.New(float32(rand.Int()%100)/10.0, float32(rand.Int()%105)/10.0, 0),
+			point.New(float32(rand.Int()%100)/7.0, float32(rand.Int()%105)/10.0, 0),
 		)
 	}
 }

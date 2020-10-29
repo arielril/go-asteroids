@@ -35,6 +35,11 @@ func Init() {
 
 // Display the game
 func Display(w *glfw.Window) {
+	if len(lives)-1 <= 0 {
+		fmt.Printf("\nEnd game, no lives!\n\n")
+		w.SetShouldClose(true)
+	}
+
 	displayFps()
 	displayScenario()
 }
