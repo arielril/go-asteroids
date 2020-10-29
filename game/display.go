@@ -5,6 +5,7 @@ import (
 
 	"github.com/arielril/go-asteroids/object/bullet"
 	"github.com/arielril/go-asteroids/object/ship"
+	"github.com/arielril/go-asteroids/point"
 	"github.com/arielril/go-asteroids/util"
 )
 
@@ -41,6 +42,13 @@ func displayScenario() {
 		enemyShoot(s)
 		s.UpdateBoundingBox()
 		s.Draw()
+		s.Raw().DirectionVector = point.New(0, .3, 0)
+		// if s.RawShip().TrajectoryProgress <= 0 ||
+		// 	s.RawShip().TrajectoryProgress >= 1 {
+		// 	s.RawShip().TrajectoryProgress = 0
+		// }
+		// s.CreateTrajectory()
+		// s.RawShip().TrajectoryProgress += 0.0001
 	}
 	enemyBulletsList := make([]bullet.Bullet, 0)
 	for _, b := range enemyBullets {
