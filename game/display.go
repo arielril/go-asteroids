@@ -134,5 +134,5 @@ func _removeEnemyBullet(bulletToRemove bullet.Bullet) {
 }
 
 func _removeLifeFromShooter() {
-	lives = lives[:len(lives)-1]
+//	lives = lives[:len(lives)-1]
 }
